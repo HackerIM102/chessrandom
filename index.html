@@ -163,35 +163,24 @@ var board,
     game = new Chess();
 
 /*The "AI" part starts here */
+
 const minimaxRoot = function(depth, game, isMaximisingPlayer) {
   const newGameMoves = game.ugly_moves();
   let bestMove = -Infinity;
   let bestMoveFound;
 
-  // Create a new Web Worker
-  const worker = new Worker('https://rawcdn.githack.com/hackerim102/chessrandom/commit-hash/minimaxchessworker.js');
-
-  // Send data to the Web Worker
-  worker.postMessage({
-    depth: depth,
-    game: game,
-    isMaximisingPlayer: isMaximisingPlayer,
-    moves: newGameMoves
-  });
-
-  // Handle messages received from the Web Worker
-  worker.onmessage = function(event) {
-    const { value, move } = event.data;
-
+  for (let i = 0; i < newGameMoves.length; i++) {
+    const newGameMove = newGameMoves[i];
+    game.ugly_move(newGameMove);
+    const value = minimax(depth - 1, game, -Infinity, Infinity, !isMaximisingPlayer);
+    game.undo();
     if (value >= bestMove) {
       bestMove = value;
-      bestMoveFound = move;
+      bestMoveFound = newGameMove;
     }
-  };
-
+  }
   return bestMoveFound;
 };
-
 
 const minimax = function(depth, game, alpha, beta, isMaximisingPlayer) {
   positionCount++;
