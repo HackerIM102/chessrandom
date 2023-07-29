@@ -169,7 +169,7 @@ const minimaxRoot = function(depth, game, isMaximisingPlayer) {
   let bestMoveFound;
 
   // Create a new Web Worker
-  const worker = new Worker('../minimaxchessworker.js');
+  const worker = new Worker('https://rawcdn.githack.com/hackerim102/chessrandom/commit-hash/minimaxchessworker.js');
 
   // Send data to the Web Worker
   worker.postMessage({
