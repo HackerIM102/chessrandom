@@ -169,7 +169,7 @@ const minimaxRoot = function(depth, game, isMaximisingPlayer) {
   let bestMoveFound;
 
   // Create a new Web Worker
-  const worker = new Worker('file:///C:/Users/T1005092D/Documents/minimaxchessworker.js');
+  const worker = new Worker('minimaxchessworker.js');
 
   // Send data to the Web Worker
   worker.postMessage({
